@@ -5,6 +5,6 @@ import upload from "../middlewares/multer.js";
 const songRouter = express.Router();
 
 songRouter.post('/add',upload.fields([{name: 'image',maxCount:1},{name: 'audio',maxCount:1}]),addSong);
-songRouter.get('/list',upload,listSong);
+songRouter.get('/list',listSong);
 
 export default songRouter
