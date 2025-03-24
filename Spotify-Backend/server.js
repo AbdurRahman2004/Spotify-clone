@@ -4,6 +4,7 @@ import 'dotenv/config'
 import songRouter from "./src/routes/songRouter.js";
 import connectDB from "./src/config/Mongodb.js";
 import connecCloudinary from "./src/config/Cloudinary.js";
+import albumRouter from "./src/routes/albumRoute.js";
 
 //app config
 
@@ -18,6 +19,7 @@ app.use(cors()); // allow frontend and backend
 
 // initializing Routes
 app.use("/api/song",songRouter);
+app.use("/api/album",albumRouter);
 
 app.get('/',(req,res)=>{
     res.send("Api Working");
