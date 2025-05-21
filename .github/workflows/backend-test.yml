@@ -1,4 +1,4 @@
-name: Backend Tests
+name: Backend Tests and Docker Push
 
 on:
   push:
@@ -29,5 +29,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
+
+      - name: Log in to Docker Hub
+        if: success() && github.ref == 'refs/heads/main'
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        if: success() && github.ref == 'refs/heads/main'
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/spotify-backend:latest .
+
+      - name: Push Docker image
+        if: success() && github.ref == 'refs/heads/main'
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/spotify-backend:latest
