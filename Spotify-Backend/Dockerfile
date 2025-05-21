@@ -1,3 +1,4 @@
+# Multi Stage Docker File to reduce the image size
 # Stage 1: Build
 FROM node:20-alpine AS builder
 
